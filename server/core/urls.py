@@ -5,6 +5,7 @@ from . import views
 
 router = DefaultRouter()
 router.register('users', views.UserViewSet)
+router.register('ledgers', views.LedgerViewSet)
 
 urlpatterns = [
     path('api/v0/', include(router.urls)),    

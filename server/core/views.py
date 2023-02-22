@@ -7,9 +7,39 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.viewsets import ModelViewSet
 
-from .models import User
-from .serializers import UserSerializer
+from .models import User, Ledger
+from .serializers import UserSerializer, LedgerSerializer
 
+class LedgerViewSet(ModelViewSet):
+    queryset = Ledger.objects.all()
+    serializer_class = LedgerSerializer
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer, user)
+        headers = self.get_success_headers(serializer.data)
+        data = {
+            'message': 'Ledger creation Success',
+            'results': serializer.data
+        }
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer, user):
+        serializer.save(user=user)
+        return super().perform_create(serializer)
+
+    def list(self, request, *args, **kwargs):
+        user = request.user
+        queryset = self.get_queryset().filter(user=user)
+        count = queryset.count()
+        serializer = self.get_serializer(queryset, many=True)
+        data = {
+            'count': count,
+            'results': serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
