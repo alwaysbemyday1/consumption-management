@@ -14,6 +14,16 @@ class LedgerViewSet(ModelViewSet):
     queryset = Ledger.objects.all()
     serializer_class = LedgerSerializer
 
+    def list(self, request, *args, **kwargs):
+        user = request.user
+        queryset = self.get_queryset().filter(user=user)
+        count = queryset.count()
+        serializer = self.get_serializer(queryset, many=True)
+        data = {
+            'count': count,
+            'results': serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
