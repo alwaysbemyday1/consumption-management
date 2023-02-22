@@ -7,6 +7,8 @@ class LedgerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ledger
         fields = '__all__'
+        extra_kwargs = {'user': {'read_only': True}}
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
