@@ -21,6 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 import os, json
+from datetime import timedelta
+
 from django.core.exceptions import ImproperlyConfigured
 
 # SECRET_KEY 파일 위치
@@ -58,6 +60,8 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
 
     'rest_framework',
+    'rest_framework_simplejwt',
+
 ]
 
 MIDDLEWARE = [
@@ -143,3 +147,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+REST_USE_JWT = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ROTATE_REFRESH_TOKENS': False,
+    'UPDATE_LAST_LOGIN': False,
+    'TOKEN_USER_CLASS': 'core.User',
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+}

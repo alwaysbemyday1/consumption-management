@@ -6,12 +6,14 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'email', 'password', 'is_admin', 'last_login']
         extra_kwargs = {'password': {'write_only': True}}
 
-    def create(self, validated_data):
+    def save(self, request):
         try:
-            user = User.objects.create_user(**validated_data)
+            user = super().save()
+            user.email = self.validated_data['email']
+            user.set_password(self.validated_data['password'])
             user.save()
         except ValidationError as err:
             raise ValidationError(err)
