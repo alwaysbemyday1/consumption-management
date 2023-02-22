@@ -7,8 +7,12 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.viewsets import ModelViewSet
 
-from .models import User
-from .serializers import UserSerializer
+from .models import User, Ledger
+from .serializers import UserSerializer, LedgerSerializer
+
+class LedgerViewSet(ModelViewSet):
+    queryset = Ledger.objects.all()
+    serializer_class = LedgerSerializer
 
 
 class UserViewSet(ModelViewSet):
