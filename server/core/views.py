@@ -1,4 +1,7 @@
 from django.contrib.auth import authenticate
+from django.core import signing
+from django.core.exceptions import SuspiciousOperation
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action
@@ -58,6 +61,35 @@ class LedgerViewSet(ModelViewSet):
             'result': serializer.data
         }
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def generate_temp_url(self, data=None):
+        return reverse('core:ledger-temp', args=[signing.dumps(data)])
+
+    @action(methods=['get'], detail=True, url_path='temp', url_name='temp')
+    def share_temp_url(self, request, pk):
+        instance = self.get_object()
+        serilizer = self.get_serializer(instance)
+        serilized_data = serilizer.data
+        signed_url = self.generate_temp_url(serilized_data)
+        data = {
+            'message': 'Creating Temporary URL Success',
+            'result': f'http://127.0.0.1:8000{signed_url}'
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=False, url_path=r'(?P<signed_data>[^/.]+)/temp')
+    def view_temp_url(self, request, signed_data):
+        URL_MAX_AGE_SECONDS = 1800
+        try:
+            decoded_data = signing.loads(signed_data, max_age=URL_MAX_AGE_SECONDS)
+        except signing.BadSignature:
+            # triggers an ResponseBadRequest (status 400) when DEBUG is False
+            raise SuspiciousOperation('invalid signature')
+        data = {
+            'message': 'Viewing Temporary URL Success',
+            'result': f'{decoded_data}'
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class UserViewSet(ModelViewSet):
