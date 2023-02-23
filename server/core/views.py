@@ -62,6 +62,9 @@ class LedgerViewSet(ModelViewSet):
         }
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
+    def generate_temp_url(self, data=None):
+        return reverse('core:ledger-temp', args=[signing.dumps(data)])
+
     @action(methods=['get'], detail=True, url_path='temp', url_name='temp')
     def share_temp_url(self, request, pk):
         instance = self.get_object()
