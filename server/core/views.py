@@ -1,4 +1,7 @@
 from django.contrib.auth import authenticate
+from django.core import signing
+from django.core.exceptions import SuspiciousOperation
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action
@@ -58,6 +61,18 @@ class LedgerViewSet(ModelViewSet):
             'result': serializer.data
         }
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @action(methods=['get'], detail=True, url_path='temp', url_name='temp')
+    def share_temp_url(self, request, pk):
+        instance = self.get_object()
+        serilizer = self.get_serializer(instance)
+        serilized_data = serilizer.data
+        signed_url = self.generate_temp_url(serilized_data)
+        data = {
+            'message': 'Creating Temporary URL Success',
+            'result': f'http://127.0.0.1:8000{signed_url}'
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class UserViewSet(ModelViewSet):
