@@ -77,7 +77,6 @@ ex. 복제 API 개발 시 클라이언트에서 data를 전송하지 않아도, 
 
 임시 단축 url을 출력하는 API를 구현하며 url data의 인코딩과 디코딩을 편리하게 도와주고, 필요에 따라 만료기간(expirated date) 확인까지 도와주는 django.core의 signing 모듈을 사용했다. documentation를 보니 활용도가 높은 모듈로 생각된다. </br>
 > documentation link
-</br>
 https://docs.djangoproject.com/en/4.1/topics/signing/
 
 </br></br>
