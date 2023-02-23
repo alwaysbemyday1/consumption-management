@@ -4,7 +4,6 @@ with **Pay Here**
 
 </br></br>
 
----
 
 ## API 테스트 케이스
 
@@ -12,7 +11,6 @@ with **Pay Here**
 
 </br></br>
 
----
 
 ## 체크리스트
 
@@ -38,6 +36,28 @@ with **Pay Here**
 
 </br></br>
 
----
 
+## 개발 과정에서 고려한 부분
 
+### REST API
+
+1. REST Protocol (Uniform Interface, Client/Server 분리, Stateless, Cacheable, Layered System, Code on Demand)
+2. URL 네이밍 규칙 (1. 명사, 소문자, 복수형, 구분자는 "-", 파일 확장자 미포함)
+3. url의 마지막에 /를 포함하지 않는다는 네이밍 규칙도 있지만 url의 마지막에 /를 포함하는 django의 네이밍 규칙이 선행됨.
+
+### Pythonic
+
+1. 파이썬의 고유한 메커니즘을 따르는 코드 작성
+2. 짧고 이해하기 쉬운 코드
+
+### 요구사항 구현
+
+1. 요구사항 분석을 통한 요구 의도 파악
+2. 요구사항에 없지만 고객에게 필요할 것으로 생각되는 것 구현
+
+### Details
+
+1. 개발의 편의와 효율을 생각한 디테일 </br>
+ex. 복제 API 개발 시 클라이언트에서 data를 전송하지 않아도, 자동으로 해당 instance의 정보 가져와서 복제되게 만듦.
+
+</br></br>
