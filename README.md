@@ -76,8 +76,9 @@ ex. 복제 API 개발 시 클라이언트에서 data를 전송하지 않아도, 
 ### signing 모듈
 
 임시 단축 url을 출력하는 API를 구현하며 url data의 인코딩과 디코딩을 편리하게 도와주고, 필요에 따라 만료기간(expirated date) 확인까지 도와주는 django.core의 signing 모듈을 사용했다. documentation를 보니 활용도가 높은 모듈로 생각된다. </br>
-> documentation link
+> documentation link</br>
 https://docs.djangoproject.com/en/4.1/topics/signing/
+</br>
 > 사용 예시
 1. Generating “recover my account” URLs for sending to users who have lost their password.
 2. Ensuring data stored in hidden form fields has not been tampered with.
