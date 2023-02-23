@@ -44,6 +44,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Ledger(models.Model):
     user = models.ForeignKey(User, db_column="user_id", on_delete=models.CASCADE, related_name='ledger')
-    amount = models.IntegerField(max_length=25)
+    amount = models.IntegerField()
     memo = models.TextField(max_length=500)
     date = models.DateTimeField(auto_now_add=True)
