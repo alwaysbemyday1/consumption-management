@@ -4,17 +4,17 @@ with **Pay Here**
 
 </br></br>
 
-## API 테스트 케이스
-
 ---
+
+## API 테스트 케이스
 
 > https://magnificent-trout-789.notion.site/API-baa22472034b4f58a9079ee221f4939e
 
 </br></br>
 
-## 체크리스트
-
 ---
+
+## 체크리스트
 
 1. 고객 관련
 - [x]  (Test No. 2) 고객은 이메일과 비밀번호 입력을 통해서 회원 가입을 할 수 있습니다.
@@ -37,3 +37,7 @@ with **Pay Here**
 - [x]  README 에 구현하신 내용(API 및 설계 관련)과 코드에 대한 생각 등을 자유롭게 작성해 주세요.
 
 </br></br>
+
+---
+
+
