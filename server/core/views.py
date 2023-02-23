@@ -41,6 +41,25 @@ class LedgerViewSet(ModelViewSet):
         }
         return Response(data, status=status.HTTP_200_OK)
 
+    @action(methods=['post'], detail=True, url_path='duplication')
+    def duplicate(self, request, pk):
+        instance = self.get_object()
+        duplicated_instance = {
+            'amount': instance.amount,
+            'memo': instance.memo
+        }
+        serializer = self.get_serializer(data=duplicated_instance)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer, request.user)
+        headers = self.get_success_headers(serializer.data)
+        
+        data = {
+            'message': 'Duplication Success',
+            'result': serializer.data
+        }
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
+
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
