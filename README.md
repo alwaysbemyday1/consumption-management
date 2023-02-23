@@ -80,6 +80,7 @@ ex. 복제 API 개발 시 클라이언트에서 data를 전송하지 않아도, 
 https://docs.djangoproject.com/en/4.1/topics/signing/
 </br>
 > 사용 예시
+</br>
 1. Generating “recover my account” URLs for sending to users who have lost their password.
 2. Ensuring data stored in hidden form fields has not been tampered with.
 3. Generating one-time secret URLs for allowing temporary access to a protected resource, for example a downloadable file that a user has paid for.
