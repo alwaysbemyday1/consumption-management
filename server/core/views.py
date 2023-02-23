@@ -77,6 +77,20 @@ class LedgerViewSet(ModelViewSet):
         }
         return Response(data, status=status.HTTP_200_OK)
 
+    @action(methods=['get'], detail=False, url_path=r'(?P<signed_data>[^/.]+)/temp')
+    def view_temp_url(self, request, signed_data):
+        URL_MAX_AGE_SECONDS = 1800
+        try:
+            decoded_data = signing.loads(signed_data, max_age=URL_MAX_AGE_SECONDS)
+        except signing.BadSignature:
+            # triggers an ResponseBadRequest (status 400) when DEBUG is False
+            raise SuspiciousOperation('invalid signature')
+        data = {
+            'message': 'Viewing Temporary URL Success',
+            'result': f'{decoded_data}'
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
