@@ -23,6 +23,7 @@ class UserViewSet(ModelViewSet):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             user = serializer.save(request)
+            headers = self.get_success_headers(serializer.data)
             token = TokenObtainPairSerializer.get_token(user)
             refresh_token = str(token)
             access_token = str(token.access_token)
@@ -35,7 +36,7 @@ class UserViewSet(ModelViewSet):
                     'refresh': refresh_token,
                 },
             }
-            return Response(data, status=status.HTTP_200_OK)
+            return Response(data, status=status.HTTP_200_OK, headers=headers)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     

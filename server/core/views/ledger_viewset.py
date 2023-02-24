@@ -15,7 +15,7 @@ class LedgerViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         user = request.user
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer, user)
         headers = self.get_success_headers(serializer.data)
@@ -47,7 +47,7 @@ class LedgerViewSet(ModelViewSet):
             'amount': instance.amount,
             'memo': instance.memo
         }
-        serializer = self.get_serializer(data=duplicated_instance)
+        serializer = self.serializer_class(data=duplicated_instance)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer, request.user)
         headers = self.get_success_headers(serializer.data)
