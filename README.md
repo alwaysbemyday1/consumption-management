@@ -42,7 +42,7 @@ with **Pay Here**
 ### REST API
 
 1. REST Protocol (Uniform Interface, Client/Server 분리, Stateless, Cacheable, Layered System, Code on Demand)
-2. URL 네이밍 규칙 (1. 명사, 소문자, 복수형, 구분자는 "-", 파일 확장자 미포함)
+2. URL 네이밍 규칙 (명사, 소문자, 복수형, 구분자는 "-", 파일 확장자 미포함)
 3. url의 마지막에 /를 포함하지 않는다는 네이밍 규칙도 있지만 url의 마지막에 /를 포함하는 django의 네이밍 규칙이 선행됨.
 
 ### Pythonic
