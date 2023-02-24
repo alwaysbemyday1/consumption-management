@@ -1,8 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from core.views.ledgerviewset import LedgerViewSet
-from core.views.userviewset import UserViewSet
+from core.views.ledger_viewset import LedgerViewSet
+from core.views.user_viewset import UserViewSet
 
 app_name = 'core'
 
