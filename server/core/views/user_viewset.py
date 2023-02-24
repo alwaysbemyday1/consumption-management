@@ -8,7 +8,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.viewsets import ModelViewSet
 
 from core.models import User
-from core.serializers import UserSerializer
+from core.serializers.user_serializer import UserSerializer
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()

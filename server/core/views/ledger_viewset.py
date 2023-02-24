@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from core.models import Ledger
-from core.serializers import LedgerSerializer
+from core.serializers.ledger_serializer import LedgerSerializer
 
 class LedgerViewSet(ModelViewSet):
     queryset = Ledger.objects.all()
